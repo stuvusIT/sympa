@@ -1,0 +1,51 @@
+---
+- name: Defines which parameters/files are editable by owners
+  template:
+    src: edit_list.conf.j2
+    dest: /home/sympa/etc/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Sympa main configuration file
+  template:
+	src: sympa.conf.j2
+	dest: /home/sympa/etc/
+	owner: root
+	group: root
+	mode: 0644
+
+- name: LDAP authentication
+  template:
+	src: auth.conf.j2
+	dest: /home/sympa/etc/
+	owner: root
+	group: root
+	mode: 0644
+
+- name: Specifies how Sympa detects web crawler
+  template:
+  src: crawlers_detection.conf.j2
+  dest: /usr/share/sympa/default/
+  owner: root
+  group: root
+  mode: 0644
+
+- name: Virtual Host definition for Sympairtual Host definition for Sympa
+  template:
+  src: robot.conf.j2
+  dest: /usr/share/doc/sympa/examples/sample/
+  owner: root
+  group: root
+  mode: 0644
+
+- name: Manage mail aliases in an LDAP directory
+  template:
+  src: ldap_alias_manager.conf.j2
+  dest: /home/sympa/etc/
+  owner: root
+  group: root
+  mode: 0644
+
+
+
