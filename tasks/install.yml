@@ -1,0 +1,14 @@
+---
+- name: Install required apt packages
+  apt:
+    name: sympa 
+  when: ansible_pkg_mgr == "apt
+
+- name: create /data/project/sympa
+  file:
+    path: /data/project/sympa
+    state: directory
+    owner: sympa
+    group: sympa
+  notify: restart sympa
+
