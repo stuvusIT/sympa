@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+{% for auth in sympa_auth %}
+{{ auth.name }}
+	{% for option_name, option_value in auth.options.items() %}
+	{{ option_name }} {{ option_value }}
+	{% endfor %}
+
+{% endfor %}
