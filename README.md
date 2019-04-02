@@ -12,20 +12,56 @@ A webserver that servers the sympa web app and a database for the web app.
 
 ### Auth Variables
 
-| Name         | Required/Default | Description |
-|:-------------|:----------------:|:------------|
-| `sympa_auth` |                  |             |
-| - `name`     | user_table       |             |
-| `options`    |                  |             |
-| `regexp`     | ".*"             |             |
+`sympa_auth` list of auth methods used in order.
+each entry contains
+
+| Name      | Required/Default   | Description                                   |
+|:----------|:------------------:|:----------------------------------------------|
+| `name`    | :heavy_check_mark: | Name of the auth option like ldap, user_table |
+| `options` | :heavy_check_mark: | Dict of options for the auth method           |
+
+Example
+
+```yaml
+sympa_auth:
+  - name: ldap
+    options:
+    host: ldap.example.com:636
+      timeout: 20
+      suffix: yoursuffix
+      bind_dn: yourbinddn
+      bind_password: yourpw
+      use_tls: ldaps
+      ca_verify: none
+      get_dn_by_uid_filter: "(uid=[sender])"
+      email_attribute: mail
+      scope: sub
+      authentication_info_url: https://example.com
+  - name: user_table
+    options:
+      regexp: ".*"
+```
 
 ### Topic Variables
 
-| Name           | Required/Default | Description |
-|:---------------|:----------------:|:------------|
-| `sympa_topics` |                  |             |
-| - `path`       | art              |             |
-| `title`        | Arts             |             |
+List of topics under the key `sympa_topics`
+Each list entry contains the following
+
+| Name    | Required/Default   | Description |
+|:--------|:------------------:|:------------|
+| `path`  | :heavy_check_mark: |     Path of the category        |
+| `title` | :heavy_check_mark: |     Title of the category        |
+
+Example
+
+```yaml
+sympa_topics:
+  - path: art
+    title: Art
+  - path: art/expressionism
+    title: Expressionism
+```
+
 ### Sympa Variables
 
 | Name                                       | Required/Default                                                                                                      | Description                                                                                                                                                                                                                                                                                                                              |
@@ -118,44 +154,6 @@ A webserver that servers the sympa web app and a database for the web app.
 | `sympa_review_page_size`                   | `25`                                                                                                                  | Default number of lines of the array displaying users in the review page                                                                                                                                                                                                                                                                 |
 | `sympa_web_page_title`                     | `Mailing lists service`                                                                                               | Title of main Web page                                                                                                                                                                                                                                                                                                                   |
 
-## Requirements
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
-
-## Role Variables
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-```yml
-```
-
-
-## Dependencies
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-
-## Example Playbook
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-
-### Playbook
-
-```yml
-```
-
-
-### Vars
-
-```yml
-```
-
-
-### Result
-
-A short summary what the playbook actually does.
 
 
 ## License
@@ -165,4 +163,4 @@ This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 Inter
 
 ## Author Information
 
- * [Author Name (nickname)](github profile) _your-full-stuvus-email-address@stuvus.uni-stuttgart.de_
+ * [Fritz Otlinghaus (Scriptkiddi)](https://github.com/Scriptkiddi) _fritz.otlinghaus@stuvus.uni-stuttgart.de_
