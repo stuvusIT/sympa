@@ -71,7 +71,7 @@ sympa_viewmail_dir: /var/spool/sympa/viewmail
 sympa_welcome_return_path: owner
 sympa_remind_return_path: owner
 sympa_bounce_path: /var/lib/sympa/bounce
-sympa_expire_bounce: daily
+sympa_expire_bounce_task: daily
 sympa_bounce_warn_rate: 30
 sympa_bounce_halt_rate: 50
 sympa_cache_list_config: none
@@ -97,7 +97,7 @@ sympa_dkim_signature_apply_on:
   - editor_validated_messages
 sympa_antispam_tag_header_name: X-Spam-Status
 sympa_arc_path: /var/lib/sympa/arc
-sympa_default_index: thrd
+sympa_archive_default_index: thrd
 sympa_cookie_expire: 0
 sympa_cookie_domain: localhost
 sympa_cookie_refresh: 60
