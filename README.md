@@ -10,6 +10,8 @@ A webserver that servers the sympa web app and a database for the web app.
 
 ## Role Variables
 
+For the full documentation see https://sympa-community.github.io/, this was tested with Sympa Version 6.2.16
+
 ### Auth Variables
 
 `sympa_auth` list of auth methods used in order.
