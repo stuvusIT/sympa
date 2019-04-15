@@ -47,10 +47,10 @@ sympa_auth:
 List of topics under the key `sympa_topics`
 Each list entry contains the following
 
-| Name    | Required/Default   | Description |
-|:--------|:------------------:|:------------|
-| `path`  | :heavy_check_mark: |     Path of the category        |
-| `title` | :heavy_check_mark: |     Title of the category        |
+| Name    | Required/Default   | Description           |
+|:--------|:------------------:|:----------------------|
+| `path`  | :heavy_check_mark: | Path of the category  |
+| `title` | :heavy_check_mark: | Title of the category |
 
 Example
 
