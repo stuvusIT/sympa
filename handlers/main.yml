@@ -1,0 +1,5 @@
+---
+- name: Restart sympa
+  systemd:
+    state: restarted
+    name: sympa

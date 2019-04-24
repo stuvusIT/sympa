@@ -1,0 +1,107 @@
+---
+sympa_db_name: sympa
+sympa_db_host: localhost
+sympa_db_port: 3306
+sympa_db_user: sympa
+sympa_lang: en
+sympa_auth:
+  - name: user_table
+    options:
+      regexp: ".*"
+sympa_topics:
+  - path: art
+    title: Arts
+sympa_email: sympa
+sympa_gecos: SYMPA
+sympa_process_archive: False
+sympa_voot_feature: False
+sympa_max_wrong_password: 19
+sympa_static_content_path: /var/lib/sympa/static_content
+sympa_static_content_url: /static-sympa
+sympa_syslog: LOCAL1
+sympa_log_level: 0
+sympa_log_socket_type: unix
+sympa_sendmail: /usr/bin/sendmail
+sympa_maxsmtp: 40
+sympa_log_smtp: False
+sympa_use_blacklist:
+  - send
+  - create_list
+sympa_max_size: 5242880
+sympa_sendmail_nrcpt: 25
+sympa_sendmail_avg: 10
+sympa_rfc2369_header_fields:
+  - help
+  - subscribe
+  - unsubscribe
+  - post
+  - owner
+  - archive
+sympa_remove_headers:
+  - X-Sympa-To
+  - X-Family-To
+  - Return-Receipt-To
+  - Precedence
+  - X-Sequence
+  - Disposition
+  - Notification-To
+  - Sender
+sympa_reject_mail_from_automates_feature: True
+sympa_packet_priority: 5
+sympa_bulk_fork_threshold: 1
+sympa_bulk_max_count: 3
+sympa_bulk_lazytime: 600
+sympa_bulk_sleep: 1
+sympa_bulk_wait_to_fork: 10
+sympa_default_max_list_members: 0
+sympa_spool: /var/spool/sympa
+sympa_queue: /var/spool/sympa/msg
+sympa_queuemod: /var/spool/sympa/moderation
+sympa_queuedigest: /var/spool/sympa/digest
+sympa_queueauth: /var/spool/sympa/auth
+sympa_queueoutgoing: /var/spool/sympa/outgoing
+sympa_queuesubscribe: /var/spool/sympa/subscribe
+sympa_queuetopic: /var/spool/sympa/topic
+sympa_queuebounce: /var/spool/sympa/bounce
+sympa_queuetask: /var/spool/sympa/task
+sympa_queueautomatic: /var/spool/sympa/automatic
+sympa_queuebulk: /var/spool/sympa/bulk
+sympa_viewmail_dir: /var/spool/sympa/viewmail
+sympa_welcome_return_path: owner
+sympa_remind_return_path: owner
+sympa_bounce_path: /var/lib/sympa/bounce
+sympa_expire_bounce_task: daily
+sympa_bounce_warn_rate: 30
+sympa_bounce_halt_rate: 50
+sympa_cache_list_config: none
+sympa_sympa_priority: 1
+sympa_request_priority: 0
+sympa_owner_priority: 9
+sympa_default_list_priority: 5
+sympa_parsed_family_files:
+  - message.footer
+  - message.header
+  - message.footer.mime
+  - message.header.mime
+  - info
+sympa_dkim_feature: False
+sympa_dkim_add_signature_to:
+  - robot
+  - list
+sympa_dkim_private_key_path: /etc/ssl/dkim_private.key
+sympa_dkim_signature_apply_on:
+  - md5_authenticated_messages
+  - smime_authenticated_messages
+  - dkim_authenticated_messages
+  - editor_validated_messages
+sympa_antispam_tag_header_name: X-Spam-Status
+sympa_arc_path: /var/lib/sympa/arc
+sympa_archive_default_index: thrd
+sympa_cookie_expire: 0
+sympa_cookie_domain: localhost
+sympa_cookie_refresh: 60
+sympa_default_home: home
+sympa_edit_list: owner
+sympa_ldap_force_canonical_email: 1
+sympa_review_page_size: 25
+sympa_web_page_title: Mailing lists service

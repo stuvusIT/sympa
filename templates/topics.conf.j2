@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+{% for topic in sympa_topics %}
+{{ topic.path }}
+title {{ topic.title }}
+{% endfor %}

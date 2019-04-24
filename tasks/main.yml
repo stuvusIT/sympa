@@ -1,2 +1,65 @@
----
-# tasks file for .
+- name: Set database to mysql
+  debconf:
+    name: sympa
+    question: sympa/database-type
+    value: mysql
+    vtype: select
+
+- name: Set webserver to other
+  debconf:
+    name: sympa
+    question: wwsympa/webserver_type
+    value: Other
+    vtype: select
+
+- name: "Set dbconfig-install to no"
+  debconf:
+    name: sympa
+    question: sympa/dbconfig-install
+    value: no
+    vtype: boolean
+
+- name: Create a new database with name '{{ sympa_db_name }}'
+  mysql_db:
+    name: "{{ sympa_db_name }}"
+    encoding: utf8
+
+- name: Create DB user '{{ sympa_db_user }}'
+  mysql_user:
+    name: "{{ sympa_db_user }}"
+    password: "{{ sympa_db_password | mandatory }}"
+    priv: '{{ sympa_db_name }}.*:ALL,GRANT'
+  no_log: True
+
+- name: Install packages
+  apt:
+    name:
+      - sympa
+      - fcgiwrap
+
+- name: Create sympa.conf
+  template:
+    src: sympa.conf.j2
+    dest: /etc/sympa/sympa/sympa.conf
+    owner: sympa
+    group: sympa
+    mode: 0600
+  notify: Restart sympa
+
+- name: Create auth.conf
+  template:
+    src: auth.conf.j2
+    dest: /etc/sympa/auth.conf
+    owner: sympa
+    group: sympa
+    mode: 0600
+  notify: Restart sympa
+
+- name: Create topics.conf
+  template:
+    src: topics.conf.j2
+    dest: /etc/sympa/topics.conf
+    owner: sympa
+    group: sympa
+    mode: 0600
+  notify: Restart sympa

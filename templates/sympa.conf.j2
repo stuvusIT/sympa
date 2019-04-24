@@ -1,0 +1,461 @@
+# {{ ansible_managed }}
+###\\\\ Site customization ////###
+
+## domain Main robot hostname Example: domain	domain.tld
+domain	{{ sympa_domain }}
+logo_html_definition {{ sympa_logo_html_definition }}
+
+## email Local part of sympa email address Effective address will be [EMAIL]@[HOST]
+email	{{ sympa_email }}
+
+## gecos Gecos for service mail sent by Sympa itself This parameter is used for display name in the "From:" header
+gecos	{{ sympa_gecos }}
+
+## listmaster
+## Listmasters email list comma separated
+## Sympa will associate listmaster privileges to these email addresses (mail
+## and web interfaces). Some error reports may also be sent to these
+## addresses.
+## Example: listmaster	your_email_address@domain.tld
+listmaster	{{ sympa_listmaster | join(",") }}
+
+## wwsympa_url
+## URL of main Web page
+## Example: wwsympa_url	http://host.domain.tld/sympa
+wwsympa_url	{{ sympa_wwsympa_url }}
+
+## process_archive
+## Store distributed messages into archive
+## This setting can be overridden by each list
+process_archive	{% if sympa_process_archive %}on{% else %}off{% endif %}
+
+## voot_feature
+voot_feature {% if sympa_voot_feature %}on{% else %}off{% endif %}
+
+## max_wrong_password
+max_wrong_password	{{ sympa_max_wrong_password }}
+
+## static_content_path
+## Directory for storing static contents (CSS, members pictures,
+## documentation) directly delivered by HTTP server
+static_content_path	{{ sympa_static_content_path }}
+
+## static_content_url
+## URL mapped with the static_content_path directory defined above
+static_content_url	{{ sympa_static_content_url }}
+
+## cookie
+## Secret used by Sympa to make MD5 fingerprint in web cookies secure
+## Should not be changed ! May invalid all user password
+## Example: cookie	123456789
+cookie	`/usr/bin/head -n1 /etc/sympa/cookie`
+
+###\\\\ System related ////###
+
+## syslog
+## Syslog facility for sympa
+## Do not forget to edit syslog.conf
+syslog	{{ sympa_syslog }}
+
+## log_level
+## Log verbosity
+## 0: normal, 2,3,4: for debug
+log_level	{{ sympa_log_level }}
+
+## log_socket_type
+## Communication mode with syslogd (unix | inet)
+log_socket_type	{{ sympa_log_socket_type }}
+
+###\\\\ Sending related ////###
+
+## sendmail
+## Path to the MTA (sendmail, postfix, exim or qmail)
+## should point to a sendmail-compatible binary (eg: a binary named "sendmail"
+## is distributed with Postfix)
+sendmail	{{ sympa_sendmail }}
+
+## maxsmtp
+## Max. number of Sendmail processes (launched by Sympa) running
+## simultaneously
+## Proposed value is quite low, you can rise it up to 100, 200 or even 300
+## with powerful systems.
+maxsmtp	{{ sympa_maxsmtp }}
+
+## log_smtp
+log_smtp	{% if sympa_log_smtp %}on{% else %}off{% endif %}
+
+## use_blacklist
+## comma separated list of operations for which blacklist filter is applied
+## Setting this parameter to "none" will hide the blacklist feature
+{% if sympa_use_blacklist | length>0 %}
+use_blacklist	{{ sympa_use_blacklist | join(',') }}
+{% else %}
+use_blacklist	none
+{% endif %}
+
+## max_size
+## Default maximum size (in bytes) for messages (can be re-defined for each
+## list)
+max_size	{{ sympa_max_size }}
+
+## nrcpt
+## Maximum number of recipients per call to Sendmail. The nrcpt_by_domain.conf
+## file allows a different tuning per destination domain.
+nrcpt	{{ sympa_sendmail_nrcpt }}
+
+## avg
+## Max. number of different domains per call to Sendmail
+avg	{{ sympa_sendmail_avg }}
+
+## rfc2369_header_fields
+## Specify which rfc2369 mailing list headers to add
+rfc2369_header_fields	{{ sympa_rfc2369_header_fields | join(",") }}
+
+## remove_headers
+## Specify header fields to be removed before message distribution
+remove_headers	{{ sympa_remove_headers | join(",") }}
+
+## reject_mail_from_automates_feature
+## Reject mail from automates (crontab, etc) sent to a list?
+reject_mail_from_automates_feature {% if sympa_reject_mail_from_automates_feature %}on{% else %}off{% endif %}
+
+###\\\\ Bulk mailer ////###
+
+## sympa_packet_priority
+## Default priority for a packet to be sent by bulk.
+sympa_packet_priority	{{ sympa_packet_priority }}
+
+## bulk_fork_threshold
+## Minimum number of packets in database before the bulk forks to increase
+## sending rate
+bulk_fork_threshold	{{ sympa_bulk_fork_threshold }}
+
+## bulk_max_count
+## Max number of bulks that will run on the same server
+bulk_max_count	{{ sympa_bulk_max_count }}
+
+## bulk_lazytime
+## The number of seconds a slave bulk will remain running without processing a
+## message before it spontaneously dies.
+bulk_lazytime	{{ sympa_bulk_lazytime }}
+
+## bulk_sleep
+## The number of seconds a bulk sleeps between starting a new loop if it
+## didn't find a message to send.
+## Keep it small if you want your server to be reactive.
+bulk_sleep	{{ sympa_bulk_sleep }}
+
+## bulk_wait_to_fork
+## Number of seconds a master bulk waits between two packets number checks.
+## Keep it small if you expect brutal increases in the message sending load.
+bulk_wait_to_fork	{{ sympa_bulk_wait_to_fork }}
+
+###\\\\ Quotas ////###
+
+## default_max_list_members
+## Default limit for the number of subscribers per list (0 means no limit)
+default_max_list_members	{{ sympa_default_max_list_members }}
+
+###\\\\ Spool related ////###
+
+## spool
+## Directory containing various specialized spools
+## All spool are created at runtime by sympa.pl
+spool	{{ sympa_spool }}
+
+## queue
+## Directory for message incoming spool
+queue	{{ sympa_queue }}
+
+## queuemod
+## Directory for moderation spool
+queuemod	{{ sympa_queuemod }}
+
+## queuedigest
+## Directory for digest spool
+queuedigest	{{ sympa_queuedigest }}
+
+## queueauth
+## Directory for authentication spool
+queueauth	{{ sympa_queueauth }}
+
+## queueoutgoing
+## Directory for archive spool
+queueoutgoing	{{ sympa_queueoutgoing }}
+
+## queuesubscribe
+## Directory for subscription spool
+queuesubscribe	{{ sympa_queuesubscribe }}
+
+## queuetopic
+## Directory for topic spool
+queuetopic	{{ sympa_queuetopic }}
+
+## queuebounce
+## Directory for bounce incoming spool
+queuebounce	{{ sympa_queuebounce }}
+
+## queuetask
+## Directory for task spool
+queuetask	{{ sympa_queuetask }}
+
+## queueautomatic
+## Directory for automatic list creation spool
+queueautomatic	{{ sympa_queueautomatic }}
+
+## queuebulk
+## Directory for message outgoing spool
+queuebulk	{{ sympa_queuebulk }}
+
+## viewmail_dir
+## Directory containing HTML file generated by MHonArc while displaying
+## messages other than archives
+viewmail_dir	{{ sympa_viewmail_dir }}
+
+###\\\\ Internationalization related ////###
+
+## lang
+## Default language (one of supported languages)
+## This is the default language used by Sympa
+lang	{{ sympa_lang }}
+
+###\\\\ Bounce related ////###
+
+## welcome_return_path
+## Welcome message return-path ( unique | owner )
+## If set to unique, new subcriber is removed if welcome message bounce
+welcome_return_path	{{ sympa_welcome_return_path }}
+
+## remind_return_path
+## Remind message return-path ( unique | owner )
+## If set to unique, subcriber is removed if remind message bounce, use with
+## care
+remind_return_path	{{ sympa_remind_return_path }}
+
+## bounce_path
+## Directory for storing bounces
+## Better if not in a critical partition
+bounce_path	{{ sympa_bounce_path }}
+
+## expire_bounce_task
+## Task name for expiration of old bounces
+expire_bounce_task	{{ sympa_expire_bounce_task }}
+
+## bounce_warn_rate
+## Bouncing email rate for warn list owner
+bounce_warn_rate	{{ sympa_bounce_warn_rate }}
+
+## bounce_halt_rate
+## Bouncing email rate for halt the list (not implemented)
+## Not yet used in current version, Default is 50
+bounce_halt_rate	{{ sympa_bounce_halt_rate }}
+
+###\\\\ Tuning ////###
+
+## cache_list_config
+## Use of binary version of the list config structure on disk (none |
+## binary_file)
+## Set this parameter to "binary_file" if you manage a big amount of lists
+## (1000+); it should make the web interface startup faster
+cache_list_config	{{ sympa_cache_list_config }}
+
+## sympa_priority
+## Sympa commands priority
+sympa_priority	{{ sympa_sympa_priority }}
+
+## request_priority
+request_priority	{{ sympa_request_priority }}
+
+## owner_priority
+owner_priority	{{ sympa_owner_priority }}
+
+## default_list_priority
+## Default priority for list messages
+default_list_priority	{{ sympa_default_list_priority }}
+
+## parsed_family_files
+## comma-separated list of files that will be parsed by Sympa when
+## instantiating a family (no space allowed in file names)
+parsed_family_files	{{ sympa_parsed_family_files }}
+
+###\\\\ Database related ////###
+
+## db_type
+## Type of the database (mysql|Pg|Oracle|Sybase|SQLite)
+## Be careful to the case
+db_type	mysql
+
+## db_name
+## Name of the database
+## With SQLite, the name of the DB corresponds to the DB file
+db_name	{{ sympa_db_name }}
+
+## db_host
+## Hostname of the database server
+## Example: db_host	localhost
+db_host	{{ sympa_db_host }}
+
+## db_port
+## Port of the database server
+db_port	{{ sympa_db_port }}
+
+## db_user
+## User for the database connection
+## Example: db_user	sympa
+db_user	{{ sympa_db_user }}
+
+## db_passwd
+## Password for the database connection
+## What ever you use a password or not, you must protect the SQL server (is it
+## not a public internet service ?)
+## Example: db_passwd	your_passwd
+db_passwd	{{ sympa_db_password }}
+
+###\\\\ DKIM ////###
+
+## dkim_feature
+dkim_feature {% if sympa_dkim_feature %}on{% else %}off{% endif %}
+
+## dkim_add_signature_to
+## Insert a DKIM signature to message from the robot, from the list or both
+dkim_add_signature_to	{{ sympa_dkim_add_signature_to | join(",") }}
+
+## dkim_signature_apply_on
+## Type of message that is added a DKIM signature before distribution to
+## subscribers. Possible values are "none", "any" or a list of the following
+## keywords: "md5_authenticated_messages", "smime_authenticated_messages",
+## "dkim_authenticated_messages", "editor_validated_messages".
+{% if sympa_dkim_signature_apply_on | length>0 %}
+dkim_signature_apply_on {{ sympa_dkim_signature_apply_on | join(',') }}
+{% else %}
+dkim_signature_apply_on none
+{% endif %}
+
+## dkim_private_key_path
+## Location of the file where DKIM private key is stored
+dkim_private_key_path	{{ sympa_dkim_private_key_path }}
+
+## dkim_signer_domain
+## The "d=" tag as defined in rfc 4871, default is virtual host domain name
+{% if sympa_dkim_signer_domain is defined %}
+dkim_signer_domain	{{ sympa_dkim_signer_domain }}
+{% endif %}
+
+## dkim_selector
+## The selector
+{% if sympa_dkim_selector is defined %}
+dkim_selector
+{% endif %}
+
+## dkim_signer_identity
+## The "i=" tag as defined in rfc 4871, default is null
+{% if sympa_dkim_signer_identity is defined %}
+dkim_signer_identity	{{ sympa_dkim_signer_identity }}
+{% endif %}
+
+###\\\\ Antivirus plug-in ////###
+
+## antivirus_path
+## Path to the antivirus scanner engine
+## supported antivirus: Clam AntiVirus/clamscan & clamdscan, McAfee/uvscan,
+## Fsecure/fsav, Sophos, AVP and Trend Micro/VirusWall
+## Example: antivirus_path	/usr/local/bin/clamscan
+{% if sympa_antivirus_path is defined %}
+antivirus_path
+{% endif %}
+
+## antivirus_args
+## Antivirus plugin command argument
+## Example: antivirus_args	--no-summary --database /usr/local/share/clamav
+{% if sympa_antivirus_args is defined %}
+antivirus_args	{{ sympa_antivirus_args }}
+{% endif %}
+
+###\\\\ Tag based spam filtering ////###
+
+## antispam_tag_header_name
+## If a spam filter (like spamassassin or j-chkmail) add a smtp headers to tag
+## spams, name of this header (example X-Spam-Status)
+antispam_tag_header_name	{{ sympa_antispam_tag_header_name }}
+
+## antispam_tag_header_spam_regexp
+## Regexp applied on this header to verify message is a spam (example Yes)
+{% if sympa_antispam_tag_header_spam_regexp is defined %}
+antispam_tag_header_spam_regexp	{{ sympa_antispam_tag_header_spam_regexp }}
+{% endif %}
+
+## antispam_tag_header_ham_regexp
+## Regexp applied on this header to verify message is NOT a spam (example No)
+{% if sympa_antispam_tag_header_ham_regexp is defined %}
+antispam_tag_header_ham_regexp	{{ sympa_antispam_tag_header_ham_regexp }}
+{% endif %}
+
+## spam_status
+## Messages are supposed to be filtered by an antispam that add one more
+## headers to messages. This parameter is used to select a special scenario in
+## order to decide the message spam status: ham, spam or unsure. This
+## parameter replace antispam_tag_header_name, antispam_tag_header_spam_regexp
+## and antispam_tag_header_ham_regexp.
+{% if sympa_spam_status is defined %}
+spam_status	{{ sympa_spam_status }}
+{% endif %}
+
+###\\\\ Web interface parameters ////###
+
+## arc_path
+## Directory for storing HTML archives
+## Better if not in a critical partition
+arc_path	{{ sympa_arc_path }}
+
+## archive_default_index
+## Default index organization when entering the web archive: either threaded
+## or in chronological order
+archive_default_index	{{ sympa_archive_default_index }}
+
+## cookie_expire
+## HTTP cookies lifetime
+cookie_expire	{{ sympa_cookie_expire }}
+
+## cookie_domain
+## HTTP cookies validity domain
+cookie_domain	{{ sympa_cookie_domain }}
+
+## cookie_refresh
+## Average interval to refresh HTTP session ID.
+cookie_refresh	{{ sympa_cookie_refresh }}
+
+## custom_archiver
+## Activates a custom archiver to use instead of MHonArc. The value of this
+## parameter is the absolute path on the file system to the script of the
+## custom archiver.
+{% if sympa_custom_archiver is defined %}
+custom_archiver	{{ sympa_custom_archiver }}
+{% endif %}
+
+## default_home
+## Type of main Web page ( lists | home )
+default_home	{{ sympa_default_home }}
+
+## edit_list
+edit_list	{{ sympa_edit_list }}
+
+## ldap_force_canonical_email
+## When using LDAP authentication, if the identifier provided by the user was
+## a valid email, if this parameter is set to false, then the provided email
+## will be used to authenticate the user. Otherwise, use of the first email
+## returned by the LDAP server will be used.
+ldap_force_canonical_email	{{ sympa_ldap_force_canonical_email }}
+
+## review_page_size
+## Default number of lines of the array displaying users in the review page
+review_page_size	{{ sympa_review_page_size }}
+
+## title
+## Title of main Web page
+title	{{ sympa_web_page_title }}
+
+## use_fast_cgi
+## Is FastCGI module for HTTP server installed (0 | 1)
+## This module provide much faster web interface
+use_fast_cgi	1
+
