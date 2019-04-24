@@ -1,20 +1,14 @@
 # {{ ansible_managed }}
 ###\\\\ Site customization ////###
 
-## domain
-## Main robot hostname
-## Example: domain	domain.tld
+## domain Main robot hostname Example: domain	domain.tld
 domain	{{ sympa_domain }}
 logo_html_definition {{ sympa_logo_html_definition }}
 
-## email
-## Local part of sympa email address
-## Effective address will be [EMAIL]@[HOST]
+## email Local part of sympa email address Effective address will be [EMAIL]@[HOST]
 email	{{ sympa_email }}
 
-## gecos
-## Gecos for service mail sent by Sympa itself
-## This parameter is used for display name in the "From:" header
+## gecos Gecos for service mail sent by Sympa itself This parameter is used for display name in the "From:" header
 gecos	{{ sympa_gecos }}
 
 ## listmaster
@@ -56,28 +50,6 @@ static_content_url	{{ sympa_static_content_url }}
 ## Example: cookie	123456789
 cookie	`/usr/bin/head -n1 /etc/sympa/cookie`
 
-## create_list
-## Who is able to create lists
-## This parameter is a scenario, check sympa documentation about scenarios if
-## you want to define one
-#create_list	public_listmaster
-
-## custom_robot_parameter
-## Used to define a custom parameter for your server. Do not forget the
-## semicolon between the param name and the param value.
-#custom_robot_parameter	
-
-###\\\\ Directories ////###
-
-## home
-## Directory containing mailing lists subdirectories
-#home	/var/lib/sympa/list_data
-
-## etc
-## Directory for configuration files; it also contains scenari/ and templates/
-## directories
-#etc	/etc/sympa
-
 ###\\\\ System related ////###
 
 ## syslog
@@ -94,16 +66,6 @@ log_level	{{ sympa_log_level }}
 ## Communication mode with syslogd (unix | inet)
 log_socket_type	{{ sympa_log_socket_type }}
 
-## log_condition
-#log_condition	
-
-## log_module
-#log_module	
-
-## umask
-## Umask used for file creation by Sympa
-#umask	027
-
 ###\\\\ Sending related ////###
 
 ## sendmail
@@ -119,14 +81,6 @@ sendmail	{{ sympa_sendmail }}
 ## with powerful systems.
 maxsmtp	{{ sympa_maxsmtp }}
 
-## automatic_list_families
-## Defines the name of the family the automatic lists are based on.
-#automatic_list_families	
-
-## automatic_list_prefix
-## Defines the prefix allowing to recognize that a list is an automatic list.
-#automatic_list_prefix	
-
 ## log_smtp
 log_smtp	{{ sympa_log_smtp }}
 
@@ -134,11 +88,6 @@ log_smtp	{{ sympa_log_smtp }}
 ## comma separated list of operations for which blacklist filter is applied
 ## Setting this parameter to "none" will hide the blacklist feature
 use_blacklist	{{ sympa_use_blacklist | join(',') }}
-
-## reporting_spam_script_path
-## If set, when a list editor report a spam, this external script is run by
-## wwsympa or sympa, the spam is sent into script stdin
-#reporting_spam_script_path	
 
 ## max_size
 ## Default maximum size (in bytes) for messages (can be re-defined for each
@@ -164,7 +113,7 @@ remove_headers	{{ sympa_remove_headers | join(",") }}
 
 ## reject_mail_from_automates_feature
 ## Reject mail from automates (crontab, etc) sent to a list?
-reject_mail_from_automates_feature	{{ sympa_reject_mail_from_automates_feature }} 
+reject_mail_from_automates_feature	{{ sympa_reject_mail_from_automates_feature }}
 
 ###\\\\ Bulk mailer ////###
 
@@ -202,10 +151,6 @@ bulk_wait_to_fork	{{ sympa_bulk_wait_to_fork }}
 ## default_max_list_members
 ## Default limit for the number of subscribers per list (0 means no limit)
 default_max_list_members	{{ sympa_default_max_list_members }}
-
-## default_shared_quota
-## Default disk quota for shared repository
-#default_shared_quota	
 
 ###\\\\ Spool related ////###
 
@@ -265,22 +210,10 @@ viewmail_dir	{{ sympa_viewmail_dir }}
 
 ###\\\\ Internationalization related ////###
 
-## supported_lang
-## Supported languages
-## This is the set of language that will be proposed to your users for the
-## Sympa GUI. Don't select a language if you don't have the proper locale
-## packages installed.
-#supported_lang	ca,cs,de,el,es,et,en-US,fr,fi,hu,it,ja,ko,nl,nb,oc,pl,pt-BR,ru,sv,tr,vi,zh-CN,zh-TW
-
 ## lang
 ## Default language (one of supported languages)
 ## This is the default language used by Sympa
 lang	{{ sympa_lang }}
-
-## legacy_character_support_feature
-## If set to "on", enables support of legacy character set
-## See also charset.conf(5) manpage
-#legacy_character_support_feature	off
 
 ###\\\\ Bounce related ////###
 
@@ -374,60 +307,6 @@ db_user	{{ sympa_db_user }}
 ## Example: db_passwd	your_passwd
 db_passwd	{{ sympa_db_password }}
 
-## db_env
-## Environment variables setting for database
-## This is useful for defining ORACLE_HOME
-#db_env	
-
-## db_additional_subscriber_fields
-## Database private extension to subscriber table
-## You need to extend the database format with these fields
-## Example: db_additional_subscriber_fields	billing_delay,subscription_expiration
-#db_additional_subscriber_fields	
-
-## db_additional_user_fields
-## Database private extension to user table
-## You need to extend the database format with these fields
-## Example: db_additional_user_fields	age,address
-#db_additional_user_fields	
-
-## logs_expiration_period
-## Number of months that elapse before a log is expired
-#logs_expiration_period	3
-
-## default_ttl
-## Default timeout between two scheduled synchronizations of list members with
-## data sources.
-#default_ttl	3600
-
-## default_distribution_ttl
-## Default timeout between two action-triggered synchronizations of list
-## members with data sources.
-#default_distribution_ttl	300
-
-## default_sql_fetch_timeout
-## Default timeout while performing a fetch for an include_sql_query sync
-#default_sql_fetch_timeout	300
-
-###\\\\ S/MIME configuration ////###
-
-## capath
-## Directory containing trusted CA certificates
-#capath	
-
-## cafile
-## File containing trusted CA certificates
-#cafile	
-
-## ssl_cert_dir
-## Directory containing user certificates
-#ssl_cert_dir	/var/lib/sympa/list_data/X509-user-certs
-
-## key_passwd
-## Password used to crypt lists private keys
-## Example: key_passwd	your_password
-#key_passwd	
-
 ###\\\\ DKIM ////###
 
 ## dkim_feature
@@ -457,7 +336,7 @@ dkim_signer_domain	{{ sympa_dkim_signer_domain }}
 ## dkim_selector
 ## The selector
 {% if sympa_dkim_selector is defined %}
-dkim_selector	
+dkim_selector
 {% endif %}
 
 ## dkim_signer_identity
@@ -474,7 +353,7 @@ dkim_signer_identity	{{ sympa_dkim_signer_identity }}
 ## Fsecure/fsav, Sophos, AVP and Trend Micro/VirusWall
 ## Example: antivirus_path	/usr/local/bin/clamscan
 {% if sympa_antivirus_path is defined %}
-antivirus_path	
+antivirus_path
 {% endif %}
 
 ## antivirus_args
@@ -509,7 +388,6 @@ antispam_tag_header_ham_regexp	{{ sympa_antispam_tag_header_ham_regexp }}
 ## order to decide the message spam status: ham, spam or unsure. This
 ## parameter replace antispam_tag_header_name, antispam_tag_header_spam_regexp
 ## and antispam_tag_header_ham_regexp.
-
 {% if sympa_spam_status is defined %}
 spam_status	{{ sympa_spam_status }}
 {% endif %}
@@ -560,24 +438,6 @@ edit_list	{{ sympa_edit_list }}
 ## returned by the LDAP server will be used.
 ldap_force_canonical_email	{{ sympa_ldap_force_canonical_email }}
 
-## log_facility
-## Syslog facility for wwsympa, archived and bounced
-## Default is to use previously defined sympa log facility.
-#log_facility	LOCAL1
-
-## mhonarc
-## Path to MHonArc mail2html plugin
-## This is required for HTML mail archiving
-#mhonarc	/usr/bin/mhonarc
-
-## htmlarea_url
-#htmlarea_url	
-
-## password_case
-## Password case (insensitive | sensitive)
-## Should not be changed ! May invalid all user password
-#password_case	insensitive
-
 ## review_page_size
 ## Default number of lines of the array displaying users in the review page
 review_page_size	{{ sympa_review_page_size }}
@@ -586,42 +446,8 @@ review_page_size	{{ sympa_review_page_size }}
 ## Title of main Web page
 title	{{ sympa_web_page_title }}
 
-## use_html_editor
-## If set to "on", users will be able to post messages in HTML using a
-## javascript WYSIWYG editor.
-#use_html_editor	0
-
-## html_editor_url
-## URL path to the javascript file making the WYSIWYG HTML editor available.
-## Relative path under <static_content_url> or absolute path
-## Example is for TinyMCE 4 installed under <static_content_path>/js/tinymce/.
-## Example: html_editor_url	js/tinymce/tinymce.min.js
-#html_editor_url	
-
-## html_editor_init
-## Javascript excerpt that enables and configures the WYSIWYG HTML editor.
-## Example: html_editor_init	tinymce.init({selector:"#body",language:lang.split(/[^a-zA-Z]+/).join("_")});
-#html_editor_init	
-
 ## use_fast_cgi
 ## Is FastCGI module for HTTP server installed (0 | 1)
 ## This module provide much faster web interface
 use_fast_cgi	1
-
-## viewlogs_page_size
-## Default number of lines of the array displaying the log entries in the logs
-## page
-#viewlogs_page_size	25
-
-## http_host
-## Web domain of a virtual host
-## Example: http_host	host.domain.tld
-#http_host	host.domain.tld
-
-## password_validation
-## The password validation techniques to be used against user passwords that
-## are added to mailing lists. Options come from Data::Password
-## (http://search.cpan.org/~razinf/Data-Password-1.07/Password.pm#VARIABLES)
-## Example: password_validation	MINLEN=8,GROUPS=3,DICTIONARY=4,DICTIONARIES=/pentest/dictionaries
-#password_validation	
 
