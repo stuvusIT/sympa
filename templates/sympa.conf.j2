@@ -27,10 +27,10 @@ wwsympa_url	{{ sympa_wwsympa_url }}
 ## process_archive
 ## Store distributed messages into archive
 ## This setting can be overridden by each list
-process_archive	{{ sympa_process_archive }}
+process_archive	{% if sympa_process_archive %}on{% else %}off{% endif %}
 
 ## voot_feature
-voot_feature	{{ sympa_voot_feature }}
+voot_feature {% if sympa_voot_feature %}on{% else %}off{% endif %}
 
 ## max_wrong_password
 max_wrong_password	{{ sympa_max_wrong_password }}
@@ -82,7 +82,7 @@ sendmail	{{ sympa_sendmail }}
 maxsmtp	{{ sympa_maxsmtp }}
 
 ## log_smtp
-log_smtp	{{ sympa_log_smtp }}
+log_smtp	{% if sympa_log_smtp %}on{% else %}off{% endif %}
 
 ## use_blacklist
 ## comma separated list of operations for which blacklist filter is applied
@@ -117,7 +117,7 @@ remove_headers	{{ sympa_remove_headers | join(",") }}
 
 ## reject_mail_from_automates_feature
 ## Reject mail from automates (crontab, etc) sent to a list?
-reject_mail_from_automates_feature	{{ sympa_reject_mail_from_automates_feature }}
+reject_mail_from_automates_feature {% if sympa_reject_mail_from_automates_feature %}on{% else %}off{% endif %}
 
 ###\\\\ Bulk mailer ////###
 
@@ -314,7 +314,7 @@ db_passwd	{{ sympa_db_password }}
 ###\\\\ DKIM ////###
 
 ## dkim_feature
-dkim_feature	{{ sympa_dkim_feature }}
+dkim_feature {% if sympa_dkim_feature %}on{% else %}off{% endif %}
 
 ## dkim_add_signature_to
 ## Insert a DKIM signature to message from the robot, from the list or both

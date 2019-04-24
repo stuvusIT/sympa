@@ -13,8 +13,8 @@ sympa_topics:
     title: Arts
 sympa_email: sympa
 sympa_gecos: SYMPA
-sympa_process_archive: "off"
-sympa_voot_feature: "off"
+sympa_process_archive: False
+sympa_voot_feature: False
 sympa_max_wrong_password: 19
 sympa_static_content_path: /var/lib/sympa/static_content
 sympa_static_content_url: /static-sympa
@@ -23,7 +23,7 @@ sympa_log_level: 0
 sympa_log_socket_type: unix
 sympa_sendmail: /usr/bin/sendmail
 sympa_maxsmtp: 40
-sympa_log_smtp: "off"
+sympa_log_smtp: False
 sympa_use_blacklist:
   - send
   - create_list
@@ -46,7 +46,7 @@ sympa_remove_headers:
   - Disposition
   - Notification-To
   - Sender
-sympa_reject_mail_from_automates_feature: "on"
+sympa_reject_mail_from_automates_feature: True
 sympa_packet_priority: 5
 sympa_bulk_fork_threshold: 1
 sympa_bulk_max_count: 3
@@ -84,7 +84,7 @@ sympa_parsed_family_files:
   - message.footer.mime
   - message.header.mime
   - info
-sympa_dkim_feature: "off"
+sympa_dkim_feature: False
 sympa_dkim_add_signature_to:
   - robot
   - list
