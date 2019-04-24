@@ -1,5 +1,4 @@
 ---
-sympa_db_type: mysql
 sympa_db_name: sympa
 sympa_db_host: localhost
 sympa_db_port: 3306
@@ -44,7 +43,7 @@ sympa_remove_headers:
   - Return-Receipt-To
   - Precedence
   - X-Sequence
-  - Disposition 
+  - Disposition
   - Notification-To
   - Sender
 sympa_reject_mail_from_automates_feature: "on"
