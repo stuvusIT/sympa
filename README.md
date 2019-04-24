@@ -4,8 +4,7 @@ This is an Ansible role which sets up a sympa
 
 ## Requirements
 
-Debian or Ubuntu
-A webserver that serves the sympa web app and a mysql database for it.
+Debian or Ubuntu with a webserver that serves the sympa web app and a mysql database for it.
 
 
 ## Role Variables
@@ -14,15 +13,15 @@ For the full documentation see https://sympa-community.github.io/, this was test
 
 ### Auth Variables
 
-`sympa_auth` list of auth methods used in order.
-each entry contains
+`sympa_auth` is list of auth methods used in order.
+Each entry consists of the following:
 
 | Name      | Required/Default   | Description                                   |
 |:----------|:------------------:|:----------------------------------------------|
 | `name`    | :heavy_check_mark: | Name of the auth option like ldap, user_table |
 | `options` | :heavy_check_mark: | Dict of options for the auth method           |
 
-Example
+## Example
 
 ```yaml
 sympa_auth:
@@ -46,15 +45,15 @@ sympa_auth:
 
 ### Topic Variables
 
-List of topics under the key `sympa_topics`
-Each list entry contains the following
+List of topics under the key `sympa_topics`.
+Each list entry contains the following:
 
 | Name    | Required/Default   | Description           |
 |:--------|:------------------:|:----------------------|
 | `path`  | :heavy_check_mark: | Path of the category  |
 | `title` | :heavy_check_mark: | Title of the category |
 
-Example
+## Example
 
 ```yaml
 sympa_topics:
@@ -76,7 +75,7 @@ sympa_topics:
 | `sympa_db_name`                            | `sympa`                                                                                                               | Name of the database                                                                                                                                                                                                                                                                                                                     |
 | `sympa_db_host`                            | `localhost`                                                                                                           | Hostname of the database server                                                                                                                                                                                                                                                                                                          |
 | `sympa_db_port`                            | `3306`                                                                                                                | Port of the database server                                                                                                                                                                                                                                                                                                              |
-| `sympa_db_user`                            | `sympa`                                                                                                               | User for the database connection  User for the database connection  User for the database connection                                                                                                                                                                                                                                     |
+| `sympa_db_user`                            | `sympa`                                                                                                               | User for the database connection                                                                                                                                                                                                                                        |
 | `sympa_lang`                               | `en`                                                                                                                  | Default language (one of supported languages)#supported_lang	ca,cs,de,el,es,et,en-US,fr,fi,hu,it,ja,ko,nl,nb,oc,pl,pt-BR,ru,sv,tr,vi,zh-CN,zh-TW                                                                                                                                                                                      |
 | `sympa_logo_html_definition`               | :heavy_multiplication_x:                                                                                              | HTML snippet to place logo in upper left corner                                                                                                                                                                                                                                                                                          |
 | `sympa_gecos`                              | `SYMPA`                                                                                                               | Gecos for service mail sent by Sympa itself.                                                                                                                                                                                                                                                                                             |
@@ -84,7 +83,7 @@ sympa_topics:
 | `sympa_voot_feature`                       | `"off"`                                                                                                               | Voot Feature                                                                                                                                                                                                                                                                                                                             |
 | `sympa_max_wrong_password`                 | `19`                                                                                                                  | Amount of wrong password tries                                                                                                                                                                                                                                                                                                           |
 | `sympa_static_content_path`                | `/var/lib/sympa/static_content`                                                                                       | Directory for storing static contents                                                                                                                                                                                                                                                                                                    |
-| `sympa_static_content_url`                 | `/static-sympa`                                                                                                       | URL mapped with the static_content_path directory defined above                                                                                                                                                                                                                                                                          |
+| `sympa_static_content_url`                 | `/static-sympa`                                                                                                       | URL mapped with the `sympa_static_content_path` directory                                                                                                                                                                                                                                                                          |
 | `sympa_syslog`                             | `LOCAL1`                                                                                                              | Syslog facility for sympa                                                                                                                                                                                                                                                                                                                |
 | `sympa_log_level`                          | `0`                                                                                                                   | Log verbosity  0: normal, 2,3,4: for debug                                                                                                                                                                                                                                                                                               |
 | `sympa_log_socket_type`                    | `unix`                                                                                                                | Communication mode with syslogd (unix,inet)                                                                                                                                                                                                                                                                                              |
@@ -142,7 +141,7 @@ sympa_topics:
 | `sympa_antispam_tag_header_name`           | `X-Spam-Status`                                                                                                       | If a spam filter (like spamassassin or j-chkmail) add a smtp headers to tag  spams, name of this header (example X-Spam-Status)                                                                                                                                                                                                          |
 | `sympa_antispam_tag_header_spam_regexp`    | :heavy_multiplication_x:                                                                                              | Regexp applied on this header to verify message is a spam (example Yes)                                                                                                                                                                                                                                                                  |
 | `sympa_antispam_tag_header_ham_regexp`     | :heavy_multiplication_x:                                                                                              | Regexp applied on this header to verify message is NOT a spam (example No)                                                                                                                                                                                                                                                               |
-| `sympa_spam_status`                        |                                                                                                                       | Messages are supposed to be filtered by an antispam that add one more  headers to messages. This parameter is used to select a special scenario in  order to decide the message spam status: ham, spam or unsure. This  parameter replace antispam_tag_header_name, antispam_tag_header_spam_regexp  and antispam_tag_header_ham_regexp. |
+| `sympa_spam_status`                        |                            :heavy_multiplication_x:                                                                                           | Messages are supposed to be filtered by an antispam that add one more  headers to messages. This parameter is used to select a special scenario in  order to decide the message spam status: ham, spam or unsure. This  parameter replace antispam_tag_header_name, antispam_tag_header_spam_regexp  and antispam_tag_header_ham_regexp. |
 | `sympa_arc_path`                           | `/var/lib/sympa/arc`                                                                                                  | Directory for storing HTML archives                                                                                                                                                                                                                                                                                                      |
 | `sympa_default_index`                      | `thrd`                                                                                                                | Default index organization when entering the web archive: either threaded  or in chronological order                                                                                                                                                                                                                                     |
 | `sympa_cookie_expire`                      | `0`                                                                                                                   | HTTP cookies lifetime                                                                                                                                                                                                                                                                                                                    |
