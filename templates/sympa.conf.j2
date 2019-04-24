@@ -87,7 +87,11 @@ log_smtp	{{ sympa_log_smtp }}
 ## use_blacklist
 ## comma separated list of operations for which blacklist filter is applied
 ## Setting this parameter to "none" will hide the blacklist feature
+{% if sympa_use_blacklist | length>0 %}
 use_blacklist	{{ sympa_use_blacklist | join(',') }}
+{% else %}
+use_blacklist	none
+{% endif %}
 
 ## max_size
 ## Default maximum size (in bytes) for messages (can be re-defined for each
@@ -321,7 +325,11 @@ dkim_add_signature_to	{{ sympa_dkim_add_signature_to | join(",") }}
 ## subscribers. Possible values are "none", "any" or a list of the following
 ## keywords: "md5_authenticated_messages", "smime_authenticated_messages",
 ## "dkim_authenticated_messages", "editor_validated_messages".
-dkim_signature_apply_on	{{ sympa_dkim_signature_apply_on | join(",") }}
+{% if sympa_dkim_signature_apply_on | length>0 %}
+dkim_signature_apply_on {{ sympa_dkim_signature_apply_on | join(',') }}
+{% else %}
+dkim_signature_apply_on none
+{% endif %}
 
 ## dkim_private_key_path
 ## Location of the file where DKIM private key is stored
