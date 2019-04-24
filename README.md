@@ -5,7 +5,7 @@ This is an Ansible role which sets up a sympa
 ## Requirements
 
 Debian or Ubuntu
-A webserver that servers the sympa web app and a database for the web app.
+A webserver that serves the sympa web app and a database for it.
 
 
 ## Role Variables
