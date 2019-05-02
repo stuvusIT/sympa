@@ -11,6 +11,15 @@ Debian or Ubuntu with a webserver that serves the sympa web app and a mysql data
 
 For the full documentation see https://sympa-community.github.io/, this was tested with Sympa Version 6.2.16
 
+### Datasources
+`sympa_data_sources` list of data sources to be defined.
+For content see the [data source sympa documentation](https://sympa-community.github.io/manual/customize/data-sources.html).
+Each entry consists of the following and will lead to a file with the ending `incl` beeing created in `/etc/sympa/data_sources/`:
+
+| Name      | Required/Default   | Description                                   |
+|:----------|:------------------:|:----------------------------------------------|
+| `name`    | :heavy_check_mark: | Filename for the data source |
+| `content` | :heavy_check_mark: | Content to be written to the data source file |
 
 ### Alias manager
 `sympa_alias_manager` is the path to the alias manager executable.
@@ -43,22 +52,22 @@ Each entry consists of the following:
 
 ```yaml
 sympa_auth:
-  - name: ldap
-    options:
-      host: ldap.example.com:636
-      timeout: 20
-      suffix: yoursuffix
-      bind_dn: yourbinddn
-      bind_password: yourpw
-      use_tls: ldaps
-      ca_verify: none
-      get_dn_by_uid_filter: "(uid=[sender])"
-      email_attribute: mail
-      scope: sub
-      authentication_info_url: https://example.com
-  - name: user_table
-    options:
-      regexp: ".*"
+- name: ldap
+options:
+  host: ldap.example.com:636
+  timeout: 20
+  suffix: yoursuffix
+  bind_dn: yourbinddn
+  bind_password: yourpw
+  use_tls: ldaps
+  ca_verify: none
+  get_dn_by_uid_filter: "(uid=[sender])"
+  email_attribute: mail
+  scope: sub
+  authentication_info_url: https://example.com
+- name: user_table
+options:
+  regexp: ".*"
 ```
 
 ### Topic Variables
@@ -75,10 +84,10 @@ Each list entry contains the following:
 
 ```yaml
 sympa_topics:
-  - path: art
-    title: Art
-  - path: art/expressionism
-    title: Expressionism
+- path: art
+title: Art
+- path: art/expressionism
+title: Expressionism
 ```
 
 ### Sympa Variables
@@ -181,4 +190,4 @@ This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 Inter
 
 ## Author Information
 
- * [Fritz Otlinghaus (Scriptkiddi)](https://github.com/Scriptkiddi) _fritz.otlinghaus@stuvus.uni-stuttgart.de_
+* [Fritz Otlinghaus (Scriptkiddi)](https://github.com/Scriptkiddi) _fritz.otlinghaus@stuvus.uni-stuttgart.de_
