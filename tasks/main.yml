@@ -46,6 +46,25 @@
     mode: 0600
   notify: Restart sympa
 
+- name: Crease ldap_alias_manager.conf
+  template:
+    src: ldap_alias_manager.conf.j2
+    dest: /etc/sympa/ldap_alias_manager.conf
+    owner: sympa
+    group: sympa
+    mode: 0600
+  when: sympa_ldap_alias_manager_conf is defined
+
+- name: Crease ldap_alias_entry.tt2
+  copy:
+    content: "{{ sympa_ldap_alias_entry }}"
+    dest: /etc/sympa/ldap_alias_entry.tt2
+    owner: sympa
+    group: sympa
+    mode: 0600
+  when: sympa_ldap_alias_entry is defined
+
+
 - name: Create auth.conf
   template:
     src: auth.conf.j2

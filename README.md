@@ -11,6 +11,24 @@ Debian or Ubuntu with a webserver that serves the sympa web app and a mysql data
 
 For the full documentation see https://sympa-community.github.io/, this was tested with Sympa Version 6.2.16
 
+
+### Alias manager
+`sympa_alias_manager` is the path to the alias manager executable.
+If the `sympa_ldap_alias_entry` variable is defined it will be written to `/etc/sympa/ldap_alias_entry.tt2`.
+If the `sympa_ldap_alias_manager_conf` variable is defined it will be written to `/etc/sympa/ldap_alias_manager.conf`, and can contain the following values:
+
+| Name                    | Required/Default     | Description                                |
+|:------------------------|:--------------------:|:-------------------------------------------|
+| `host`                  | :heavy_check_mark:   | Host url of the LDAP server.               |
+| `bind_dn`               | :heavy_check_mark:   | bind dn of the user to be used.            |
+| `bind_pwd`              | :heavy_check_mark:   | Password of the user.                      |
+| `base_dn`               | :heavy_check_mark:   | Base Dn of the LDAP tree.                  |
+| `mail_attribute`        | `mailRoutingAddress` | Attribute used to write to.                |
+| `ssl`                   | `false`              | Enable or disable ssl                      |
+| `queue_transport`       | `sympa`              | Name of the normal transport.              |
+| `bouncequeue_transport` | `sympabounce`        | Name of the transport when a mail bounces. |
+
+
 ### Auth Variables
 
 `sympa_auth` is list of auth methods used in order.
