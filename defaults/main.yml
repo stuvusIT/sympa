@@ -1,4 +1,5 @@
 ---
+sympa_show_old_template: false
 sympa_template_lists: []
 sympa_ldap_alias_manager_conf:
   mail_attribute: mailRoutingAddress

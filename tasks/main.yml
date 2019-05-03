@@ -91,6 +91,37 @@
     mode: 0600
   loop: "{{ sympa_template_lists }}"
 
+- name: Disable old templates
+  lineinfile:
+    path: /usr/share/sympa/default/create_list.conf
+    line: '{{ item }} hidden'
+  when: sympa_show_old_template == false
+  loop:
+    - hotline
+    - news-letter
+    - confidential
+    - discussion_list
+    - html-news-letter
+    - intranet_list
+    - private_working_group
+    - public_web_forum
+
+- name: Enable old templates
+  lineinfile:
+    path: /usr/share/sympa/default/create_list.conf
+    line: '{{ item }} hidden'
+    state: absent
+  when: sympa_show_old_template == true
+  loop:
+    - confidential
+    - discussion_list
+    - html-news-letter
+    - intranet_list
+    - private_working_group
+    - public_web_forum
+    - hotline
+    - news-letter
+
 - name: Create datasources
   copy:
     content: "{{ item.content }}"

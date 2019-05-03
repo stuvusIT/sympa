@@ -18,7 +18,7 @@ Each entry consists of the following and will lead to a folder beeing created, c
 
 | Name      | Required/Default   | Description                                     |
 |:----------|:------------------:|:------------------------------------------------|
-| `name`    | :heavy_check_mark: | Name for the list template                      |
+| `name`    | :heavy_check_mark: | Name for the folder for the template            |
 | `config`  | :heavy_check_mark: | Content to be written to the `config.tt2` file  |
 | `comment` | :heavy_check_mark: | Content to be written to the `comment.tt2` file |
 
@@ -191,6 +191,8 @@ title: Expressionism
 | `sympa_ldap_force_canonical_email`         | `1`                                                                                                                   | When using LDAP authentication, if the identifier provided by the user was  a valid email, if this parameter is set to false, then the provided email  will be used to authenticate the user. Otherwise, use of the first email  returned by the LDAP server will be used.                                                               |
 | `sympa_review_page_size`                   | `25`                                                                                                                  | Default number of lines of the array displaying users in the review page                                                                                                                                                                                                                                                                 |
 | `sympa_web_page_title`                     | `Mailing lists service`                                                                                               | Title of main Web page                                                                                                                                                                                                                                                                                                                   |
+| `sympa_show_old_template`                  | `false`                                                                                                               | Show or hide the default list templates                                                                                                                                                                                                                                                                                                  |
+
 
 
 
