@@ -64,6 +64,33 @@
     mode: 0600
   when: sympa_ldap_alias_entry is defined
 
+- name: Create folders for list templates
+  file:
+    path: "/etc/sympa/create_list_templates/{{ item.name }}"
+    state: directory
+    mode: 0750
+    owner: sympa
+    group: sympa
+  loop: "{{ sympa_template_lists }}"
+
+- name: Create comment.tt2 for list templates
+  copy:
+    content: "{{ item.config }}"
+    dest: "/etc/sympa/create_list_templates/{{ item.name }}/config.tt2"
+    owner: sympa
+    group: sympa
+    mode: 0600
+  loop: "{{ sympa_template_lists }}"
+
+- name: Create comment.tt2 for list templates
+  copy:
+    content: "{{ item.comment }}"
+    dest: "/etc/sympa/create_list_templates/{{ item.name }}/comment.tt2"
+    owner: sympa
+    group: sympa
+    mode: 0600
+  loop: "{{ sympa_template_lists }}"
+
 - name: Create datasources
   copy:
     content: "{{ item.content }}"

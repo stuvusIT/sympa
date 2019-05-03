@@ -11,6 +11,17 @@ Debian or Ubuntu with a webserver that serves the sympa web app and a mysql data
 
 For the full documentation see https://sympa-community.github.io/, this was tested with Sympa Version 6.2.16
 
+### List Templates
+`sympa_template_lists` list of templates to be defined.
+For content see the [template list sympa documentation](https://sympa-community.github.io/manual/admin/list-creation.html#typical-list-profile).
+Each entry consists of the following and will lead to a folder beeing created, containing `comment.tt2` and `config.tt2`, beeing created in `/etc/sympa/create_list_templates/` with the `name` attribute as folder name,:
+
+| Name      | Required/Default   | Description                                     |
+|:----------|:------------------:|:------------------------------------------------|
+| `name`    | :heavy_check_mark: | Name for the list template                      |
+| `config`  | :heavy_check_mark: | Content to be written to the `config.tt2` file  |
+| `comment` | :heavy_check_mark: | Content to be written to the `comment.tt2` file |
+
 ### Datasources
 `sympa_data_sources` list of data sources to be defined.
 For content see the [data source sympa documentation](https://sympa-community.github.io/manual/customize/data-sources.html).
