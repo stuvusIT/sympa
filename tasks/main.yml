@@ -46,7 +46,7 @@
     mode: 0600
   notify: Restart sympa
 
-- name: Crease ldap_alias_manager.conf
+- name: Create ldap_alias_manager.conf
   template:
     src: ldap_alias_manager.conf.j2
     dest: /etc/sympa/ldap_alias_manager.conf
@@ -55,7 +55,7 @@
     mode: 0600
   when: sympa_ldap_alias_manager_conf is defined
 
-- name: Crease ldap_alias_entry.tt2
+- name: Create ldap_alias_entry.tt2
   copy:
     content: "{{ sympa_ldap_alias_entry }}"
     dest: /etc/sympa/ldap_alias_entry.tt2
@@ -91,11 +91,11 @@
     mode: 0600
   loop: "{{ sympa_template_lists }}"
 
-- name: Disable old templates
+- name: Disable default templates
   lineinfile:
     path: /usr/share/sympa/default/create_list.conf
-    line: '{{ item }} hidden'
-  when: sympa_show_old_template == false
+    line: "{{ item }} hidden"
+  when: not sympa_show_default_templates
   loop:
     - hotline
     - news-letter
@@ -106,12 +106,12 @@
     - private_working_group
     - public_web_forum
 
-- name: Enable old templates
+- name: Enable default templates
   lineinfile:
     path: /usr/share/sympa/default/create_list.conf
     line: '{{ item }} hidden'
     state: absent
-  when: sympa_show_old_template == true
+  when: sympa_show_default_templates
   loop:
     - confidential
     - discussion_list

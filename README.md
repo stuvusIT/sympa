@@ -12,8 +12,8 @@ Debian or Ubuntu with a webserver that serves the sympa web app and a mysql data
 For the full documentation see https://sympa-community.github.io/, this was tested with Sympa Version 6.2.16
 
 ### List Templates
-`sympa_template_lists` list of templates to be defined.
-For content see the [template list sympa documentation](https://sympa-community.github.io/manual/admin/list-creation.html#typical-list-profile).
+`sympa_template_lists` is a list of templates to be defined.
+For contents see the [template list sympa documentation](https://sympa-community.github.io/manual/admin/list-creation.html#typical-list-profile).
 Each entry consists of the following and will lead to a folder beeing created, containing `comment.tt2` and `config.tt2`, beeing created in `/etc/sympa/create_list_templates/` with the `name` attribute as folder name,:
 
 | Name      | Required/Default   | Description                                     |
@@ -23,13 +23,13 @@ Each entry consists of the following and will lead to a folder beeing created, c
 | `comment` | :heavy_check_mark: | Content to be written to the `comment.tt2` file |
 
 ### Datasources
-`sympa_data_sources` list of data sources to be defined.
-For content see the [data source sympa documentation](https://sympa-community.github.io/manual/customize/data-sources.html).
+`sympa_data_sources` is a list of data sources to be defined.
+For contents see the [data source sympa documentation](https://sympa-community.github.io/manual/customize/data-sources.html).
 Each entry consists of the following and will lead to a file with the ending `incl` beeing created in `/etc/sympa/data_sources/`:
 
 | Name      | Required/Default   | Description                                   |
 |:----------|:------------------:|:----------------------------------------------|
-| `name`    | :heavy_check_mark: | Filename for the data source |
+| `name`    | :heavy_check_mark: | Filename for the data source                  |
 | `content` | :heavy_check_mark: | Content to be written to the data source file |
 
 ### Alias manager
@@ -47,7 +47,6 @@ If the `sympa_ldap_alias_manager_conf` variable is defined it will be written to
 | `ssl`                   | `false`              | Enable or disable ssl                      |
 | `queue_transport`       | `sympa`              | Name of the normal transport.              |
 | `bouncequeue_transport` | `sympabounce`        | Name of the transport when a mail bounces. |
-
 
 ### Auth Variables
 
@@ -191,9 +190,13 @@ title: Expressionism
 | `sympa_ldap_force_canonical_email`         | `1`                                                                                                                   | When using LDAP authentication, if the identifier provided by the user was  a valid email, if this parameter is set to false, then the provided email  will be used to authenticate the user. Otherwise, use of the first email  returned by the LDAP server will be used.                                                               |
 | `sympa_review_page_size`                   | `25`                                                                                                                  | Default number of lines of the array displaying users in the review page                                                                                                                                                                                                                                                                 |
 | `sympa_web_page_title`                     | `Mailing lists service`                                                                                               | Title of main Web page                                                                                                                                                                                                                                                                                                                   |
-| `sympa_show_old_template`                  | `false`                                                                                                               | Show or hide the default list templates                                                                                                                                                                                                                                                                                                  |
-
-
+| `sympa_show_default_templates`             | `false`                                                                                                               | Show or hide the default list templates                                                                                                                                                                                                                                                                                                  |
+| `sympa_template_lists`                     | `[]`                                                                                                                  | List of templates to be defined.                                                                                                                                                                                                                                                                                                         |
+| `sympa_data_sources`                       | `false`                                                                                                               | List of data sources to be defined.                                                                                                                                                                                                                                                                                                      |
+| `sympa_alias_manager`                      | ``                                                                                                                    | Path to the alias manager executable.                                                                                                                                                                                                                                                                                                    |
+| `sympa_ldap_alias_entry`                   | ``                                                                                                                    | Multiline string, written to `/etc/sympa/ldap_alias_entry.tt2`.                                                                                                                                                                                                                                                                          |
+| `sympa_ldap_alias_manager_conf`            | ``                                                                                                                    | Dict containing alias manager config attributes                                                                                                                                                                                                                                                                                          |
+| `sympa_auth`                               | `[{ name: "user:table", options: {regexp: ".*"}}]`                                                                    | List of auth methods used in order.                                                                                                                                                                                                                                                                                                      |
 
 
 ## License
