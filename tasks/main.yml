@@ -46,6 +46,91 @@
     mode: 0600
   notify: Restart sympa
 
+- name: Create ldap_alias_manager.conf
+  template:
+    src: ldap_alias_manager.conf.j2
+    dest: /etc/sympa/ldap_alias_manager.conf
+    owner: sympa
+    group: sympa
+    mode: 0600
+  when: sympa_ldap_alias_manager_conf is defined
+
+- name: Create ldap_alias_entry.tt2
+  copy:
+    content: "{{ sympa_ldap_alias_entry }}"
+    dest: /etc/sympa/ldap_alias_entry.tt2
+    owner: sympa
+    group: sympa
+    mode: 0600
+  when: sympa_ldap_alias_entry is defined
+
+- name: Create folders for list templates
+  file:
+    path: "/etc/sympa/create_list_templates/{{ item.name }}"
+    state: directory
+    mode: 0750
+    owner: sympa
+    group: sympa
+  loop: "{{ sympa_template_lists }}"
+
+- name: Create comment.tt2 for list templates
+  copy:
+    content: "{{ item.config }}"
+    dest: "/etc/sympa/create_list_templates/{{ item.name }}/config.tt2"
+    owner: sympa
+    group: sympa
+    mode: 0600
+  loop: "{{ sympa_template_lists }}"
+
+- name: Create comment.tt2 for list templates
+  copy:
+    content: "{{ item.comment }}"
+    dest: "/etc/sympa/create_list_templates/{{ item.name }}/comment.tt2"
+    owner: sympa
+    group: sympa
+    mode: 0600
+  loop: "{{ sympa_template_lists }}"
+
+- name: Disable default templates
+  lineinfile:
+    path: /usr/share/sympa/default/create_list.conf
+    line: "{{ item }} hidden"
+  when: not sympa_show_default_templates
+  loop:
+    - hotline
+    - news-letter
+    - confidential
+    - discussion_list
+    - html-news-letter
+    - intranet_list
+    - private_working_group
+    - public_web_forum
+
+- name: Enable default templates
+  lineinfile:
+    path: /usr/share/sympa/default/create_list.conf
+    line: '{{ item }} hidden'
+    state: absent
+  when: sympa_show_default_templates
+  loop:
+    - confidential
+    - discussion_list
+    - html-news-letter
+    - intranet_list
+    - private_working_group
+    - public_web_forum
+    - hotline
+    - news-letter
+
+- name: Create datasources
+  copy:
+    content: "{{ item.content }}"
+    dest: "/etc/sympa/data_sources/{{ item.name}}.incl"
+    owner: sympa
+    group: sympa
+    mode: 0600
+  loop: "{{ sympa_data_sources }}"
+
 - name: Create auth.conf
   template:
     src: auth.conf.j2

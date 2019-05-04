@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+#host
+ldap_host {{ sympa_ldap_alias_manager_conf.host }}
+
+#LDAP bind DN
+#ldap_bind_dn uid=sympa-aliasmanager_conf,ou=system,dc=faveve,dc=uni-stuttgart,dc=de
+ldap_bind_dn {{ sympa_ldap_alias_manager_conf.bind_dn }}
+
+#LDAP bind password
+ldap_bind_pwd {{ sympa_ldap_alias_manager_conf.bind_pwd }}
+
+#LDAP Base DN
+#ldap_base_dn ou=lists,ou=mail,dc=faveve,dc=uni-stuttgart,dc=de
+ldap_base_dn {{ sympa_ldap_alias_manager_conf.base_dn }}
+
+#LDAP Mail attribute
+ldap_mail_attribute {{ sympa_ldap_alias_manager_conf.mail_attribute }}
+
+#LDAP SSL
+ldap_ssl {{ sympa_ldap_alias_manager_conf.ssl | int }}
+
+queue_transport {{ sympa_ldap_alias_manager_conf.queue_transport }}
+bouncequeue_transport {{ sympa_ldap_alias_manager_conf.bouncequeue_transport }}
+
