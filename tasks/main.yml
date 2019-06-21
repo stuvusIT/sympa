@@ -18,6 +18,7 @@
     question: sympa/dbconfig-install
     value: no
     vtype: boolean
+  changed_when: false
 
 - name: Create a new database with name '{{ sympa_db_name }}'
   mysql_db:
@@ -31,20 +32,33 @@
     priv: '{{ sympa_db_name }}.*:ALL,GRANT'
   no_log: True
 
+- name: Create sympa dir
+  file:
+    path: "/etc/sympa/sympa"
+    state: directory
+
+- name: Create sympa.conf
+  template:
+    src: sympa.conf.j2
+    dest: /etc/sympa/sympa/sympa.conf
+    mode: 0600
+  notify: Restart sympa
+
 - name: Install packages
   apt:
     name:
       - sympa
       - fcgiwrap
 
-- name: Create sympa.conf
-  template:
-    src: sympa.conf.j2
-    dest: /etc/sympa/sympa/sympa.conf
+- name: Fix permissions
+  file:
+    path: "/etc/sympa/{{ item }}"
     owner: sympa
     group: sympa
-    mode: 0600
-  notify: Restart sympa
+  loop:
+    - ""
+    - "sympa/"
+    - "sympa/sympa.conf"
 
 - name: Create ldap_alias_manager.conf
   template:
