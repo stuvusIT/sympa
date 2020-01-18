@@ -162,3 +162,15 @@
     group: sympa
     mode: 0600
   notify: Restart sympa
+
+- name: Reload sympa list config 
+  become_user: sympa
+  command: /usr/lib/sympa/bin/sympa.pl --reload_list_config
+
+- name: Add cron job to reload config regularly
+  become_user: sympa
+  cron:
+    name: "sympa_reload_conf"
+    minute: "0"
+    hour: "2"
+    job: "/usr/lib/sympa/bin/sympa.pl --reload_list_config"
