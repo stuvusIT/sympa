@@ -43,6 +43,7 @@
     dest: /etc/sympa/sympa/sympa.conf
     mode: 0600
   notify: Restart sympa
+  notify: Reload sympa config
 
 - name: Install packages
   apt:
@@ -162,10 +163,6 @@
     group: sympa
     mode: 0600
   notify: Restart sympa
-
-- name: Reload sympa list config 
-  become_user: sympa
-  command: /usr/lib/sympa/bin/sympa.pl --reload_list_config
 
 - name: Add cron job to reload config regularly
   become_user: sympa

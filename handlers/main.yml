@@ -3,3 +3,7 @@
   systemd:
     state: restarted
     name: sympa
+
+- name: Reload sympa config
+  become_user: sympa
+  command: /usr/lib/sympa/bin/sympa.pl --reload_list_config
