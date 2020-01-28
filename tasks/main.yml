@@ -42,8 +42,9 @@
     src: sympa.conf.j2
     dest: /etc/sympa/sympa/sympa.conf
     mode: 0600
-  notify: Restart sympa
-  notify: Reload sympa config
+  notify:
+    - Reload sympa config
+    - Restart sympa
 
 - name: Install packages
   apt:
