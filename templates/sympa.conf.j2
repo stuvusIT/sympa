@@ -344,7 +344,7 @@ dkim_signer_domain	{{ sympa_dkim_signer_domain }}
 ## dkim_selector
 ## The selector
 {% if sympa_dkim_selector is defined %}
-dkim_selector
+dkim_selector {{ sympa_dkim_selector }}
 {% endif %}
 
 ## dkim_signer_identity

@@ -1,11 +1,13 @@
 ---
 sympa_show_default_templates: false
 sympa_template_lists: []
-sympa_ldap_alias_manager_conf:
-  mail_attribute: mailRoutingAddress
-  ssl: true
-  queue_transport: sympa
-  bouncequeue_transport: sympabounce
+## Define the following variables for ldap alias manager
+# sympa_ldap_alias_manager_conf:
+#  host: ldap.myhost.org
+#  mail_attribute: mailRoutingAddress
+#  ssl: true
+#  queue_transport: sympa
+#  bouncequeue_transport: sympabounce
 sympa_db_name: sympa
 sympa_db_host: localhost
 sympa_db_port: 3306

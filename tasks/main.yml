@@ -141,11 +141,12 @@
 - name: Create datasources
   copy:
     content: "{{ item.content }}"
-    dest: "/etc/sympa/data_sources/{{ item.name}}.incl"
+    dest: "/etc/sympa/data_sources/{{ item.name }}.incl"
     owner: sympa
     group: sympa
     mode: 0600
   loop: "{{ sympa_data_sources }}"
+  when: sympa_data_sources is defined
 
 - name: Create auth.conf
   template:
