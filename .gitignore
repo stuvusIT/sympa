@@ -49,4 +49,7 @@ pyvenv.cfg
 .venv
 pip-selfcheck.json
 
+# Exclude this file automatically created or modified by `ansible-galaxy install`
+meta/.galaxy_install_info
+
 # End of https://www.gitignore.io/api/ansible,linux,vim,virtualenv,git
