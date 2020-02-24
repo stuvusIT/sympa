@@ -25,8 +25,6 @@
   loop:
       ## set the database type
   - { name: 'sympa', question: 'sympa/database-type', value: '{{ sympa_db_type }}' , vtype: select }
-      ## Configure the database at sympa installation with dbconfig
-  - { name: 'sympa', question: 'sympa/dbconfig-install', value: 'true' , vtype: boolean }
       ## Set the sympa database name
   - { name: 'sympa', question: 'sympa/db/dbname', value: '{{ sympa_db_name }}' , vtype: string }
       ## Set the sympa database user
