@@ -1,21 +1,21 @@
 ---
 ## MySQL configuration for sympa
 
-- name: check MySQL installation
+- name: Check MySQL installation
   block: 
   - name: Gather installed packages
     package_facts:
       manager: auto
 
-  - name: check if MySQL is installed
+  - name: Check if mysql server package is installed
     assert:
       that: >
         ansible_facts.packages['default-mysql-server'] is defined or
         ansible_facts.packages['mysql-server'] is defined or
         ansible_facts.packages['mariadb-server-10.1'] is defined   
       ## The last condition could be replaced by a jinja2 json_query filter to match any version 
-      fail_msg: "No MySQL pachage found. We stop, because we can't install sympa without its database. Sorry."
-      success_msg: "MySQL package found. We can continue!"
+      fail_msg: "No mysql package found. We stop, because we can't install sympa without its database. Sorry."
+      success_msg: "mysql package found. We can continue!"
   when: not sympa_install_db_package
 
 - name: Install MySQL packages 

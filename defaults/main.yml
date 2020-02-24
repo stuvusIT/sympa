@@ -11,7 +11,7 @@ sympa_template_lists: []
 
 ## Database variables
 sympa_db_type: mysql             # mysql or PostgreSQL
-sympa_install_db_package: false  # yes for this role to install mysql or postgres, no if installed elsewhere 
+sympa_install_db_package: False  # yes for this role to install mysql or postgres, no if installed elsewhere 
 sympa_db_name: sympa
 sympa_db_host: localhost
 sympa_db_port: 3306

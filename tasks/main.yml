@@ -1,13 +1,20 @@
 ---
 ## Sympa configuration main tasks file
 
+- name: Check that "debconf" and "debconf-utils" are installed
+  apt:
+    name:
+    - debconf
+    - debconf-utils
+    state: latest
+
 - name: MySQL/MariaDB configuration
   include_tasks: mysql.yml
-  when: sympa_db_type == 'mysql'
+  when: sympa_db_type | lower == 'mysql'
 
 - name: PostgreSQL configuration
   include_tasks: postgresql.yml
-  when: sympa_db_type == 'PostgreSQL'
+  when: sympa_db_type | lower == 'postgresql'
 
 - name: Set debconf options for sympa
   debconf:
