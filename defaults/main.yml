@@ -10,8 +10,8 @@ sympa_template_lists: []
 #  bouncequeue_transport: sympabounce
 
 ## Database variables
-sympa_db_type: mysql             # mysql or pgsql
-sympa_install_db_package: false  # yes for this role to install mysql or postgres, no if installed elsewhere / TODO: not yet working for MySQL
+sympa_db_type: mysql             # mysql or PostgreSQL
+sympa_install_db_package: false  # yes for this role to install mysql or postgres, no if installed elsewhere 
 sympa_db_name: sympa
 sympa_db_host: localhost
 sympa_db_port: 3306

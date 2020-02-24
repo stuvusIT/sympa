@@ -1,7 +1,7 @@
 ---
 ## MySQL configuration for sympa
 
-- name: check mysql installation
+- name: check MySQL installation
   block: 
   - name: Gather installed packages
     package_facts:
@@ -18,7 +18,6 @@
       success_msg: "MySQL package found. We can continue!"
   when: not sympa_install_db_package
 
-## TODO: minimal installation of MySQL for sympa. This single task is not enough
 - name: Install MySQL packages 
   apt: 
     name: 

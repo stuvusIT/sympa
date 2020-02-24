@@ -7,7 +7,7 @@
 
 - name: PostgreSQL configuration
   include_tasks: postgresql.yml
-  when: sympa_db_type == 'pgsql'
+  when: sympa_db_type == 'PostgreSQL'
 
 - name: Set debconf options for sympa
   debconf:
@@ -16,9 +16,19 @@
     value: "{{ item.value }}"
     vtype: "{{ item.vtype }}"
   loop:
+      ## set the database type
   - { name: 'sympa', question: 'sympa/database-type', value: '{{ sympa_db_type }}' , vtype: select }
+      ## Configure the database at sympa installation with dbconfig
   - { name: 'sympa', question: 'sympa/dbconfig-install', value: 'true' , vtype: boolean }
+      ## Set the sympa database name
+  - { name: 'sympa', question: 'sympa/db/dbname', value: '{{ sympa_db_name }}' , vtype: string }
+      ## Set the sympa database user
+  - { name: 'sympa', question: 'sympa/db/app-user', value: '{{ sympa_db_user }}' , vtype: string }
+      ## Use the localhost for database (and not a distant host to define)
+  - { name: 'sympa', question: 'sympa/remote/host', value: 'localhost' , vtype: select }
+      ## Set the webserver type
   - { name: 'sympa', question: 'wwsympa/webserver_type', value: '{{ sympa_webserver_type }}' , vtype: select }
+
 
 - name: Create sympa dir
   file:

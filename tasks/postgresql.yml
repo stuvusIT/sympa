@@ -1,4 +1,65 @@
 ---
-## PostgreSQL configuration for sympa
+## PostgreSQL installation and configuration for sympa
 
+- name: check PostgreSQL installation
+  block: 
+  - name: Gather installed packages
+    package_facts:
+      manager: auto
+
+  - name: check if postgres is installed
+    assert:
+      that: ansible_facts.packages['postgresql'] is defined
+      fail_msg: "No PostgreSQL pachage found. We stop, because we can't install sympa without its database. Sorry."
+      success_msg: "PostgreSQL package found. We can continue!"
+  when: not sympa_install_db_package
+
+- name: Install PostgreSQL
+  apt:
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+    name:
+      - postgresql
+      - postgresql-contrib
+      - libpq-dev
+      - python-psycopg2
+      - dbconfig-pgsql
+  when: sympa_install_db_package
+  tags: postgresql
+
+- name: Create sympa database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: "{{ sympa_db_name }}"
+    encoding: UTF-8
+    lc_collate: es_UY.UTF-8
+    lc_ctype: es_UY.UTF-8
+    template: template0
+    state: present
+  tags: postgresql
+
+- name: Create sympa user with access to the database
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: "{{ sympa_db_name }}"
+    name: "{{ sympa_db_user }}"
+    password: "{{ sympa_db_password | mandatory }}"
+    priv: ALL
+    state: present
+  tags: postgresql
+
+## Debconf keys for sympa database
+
+- name: Definir opciones debconf de sympa, relativas a la base PostgreSQL
+  debconf:
+    name: "{{ item.name }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  loop:
+      ## Set the sympa database password
+  - { name: 'sympa', question: 'sympa/pgsql/app-pass', value: '{{ sympa_db_password | mandatory }}' , vtype: password }
 ...
