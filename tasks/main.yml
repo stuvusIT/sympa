@@ -1,36 +1,24 @@
-- name: Set database to mysql
+---
+## Sympa configuration main tasks file
+
+- name: MySQL/MariaDB configuration
+  include_tasks: mysql.yml
+  when: sympa_db_type == 'mysql'
+
+- name: PostgreSQL configuration
+  include_tasks: postgresql.yml
+  when: sympa_db_type == 'pgsql'
+
+- name: Set debconf options for sympa
   debconf:
-    name: sympa
-    question: sympa/database-type
-    value: mysql
-    vtype: select
-
-- name: Set webserver to other
-  debconf:
-    name: sympa
-    question: wwsympa/webserver_type
-    value: Other
-    vtype: select
-
-- name: "Set dbconfig-install to no"
-  debconf:
-    name: sympa
-    question: sympa/dbconfig-install
-    value: no
-    vtype: boolean
-  changed_when: false
-
-- name: Create a new database with name '{{ sympa_db_name }}'
-  mysql_db:
-    name: "{{ sympa_db_name }}"
-    encoding: utf8
-
-- name: Create DB user '{{ sympa_db_user }}'
-  mysql_user:
-    name: "{{ sympa_db_user }}"
-    password: "{{ sympa_db_password | mandatory }}"
-    priv: '{{ sympa_db_name }}.*:ALL,GRANT'
-  no_log: True
+    name: "{{ item.name }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  loop:
+  - { name: 'sympa', question: 'sympa/database-type', value: '{{ sympa_db_type }}' , vtype: select }
+  - { name: 'sympa', question: 'sympa/dbconfig-install', value: 'true' , vtype: boolean }
+  - { name: 'sympa', question: 'wwsympa/webserver_type', value: '{{ sympa_webserver_type }}' , vtype: select }
 
 - name: Create sympa dir
   file:
@@ -173,3 +161,5 @@
     minute: "0"
     hour: "2"
     job: "/usr/lib/sympa/bin/sympa.pl --reload_list_config"
+
+...

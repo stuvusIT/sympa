@@ -1,0 +1,53 @@
+---
+## MySQL configuration for sympa
+
+- name: check mysql installation
+  block: 
+  - name: Gather installed packages
+    package_facts:
+      manager: auto
+
+  - name: check if MySQL is installed
+    assert:
+      that: >
+        ansible_facts.packages['default-mysql-server'] is defined or
+        ansible_facts.packages['mysql-server'] is defined or
+        ansible_facts.packages['mariadb-server-10.1'] is defined   
+      ## The last condition could be replaced by a jinja2 json_query filter to match any version 
+      fail_msg: "No MySQL pachage found. We stop, because we can't install sympa without its database. Sorry."
+      success_msg: "MySQL package found. We can continue!"
+  when: not sympa_install_db_package
+
+## TODO: minimal installation of MySQL for sympa. This single task is not enough
+- name: Install MySQL packages 
+  apt: 
+    name: 
+    - default-mysql-server
+    - python-dev
+    - default-libmysqlclient-dev
+    state: present
+  when: sympa_install_db_package
+
+- name: Install pip, if not yet installed
+  apt: 
+    name: python-pip
+    state: present
+
+- name: install mysqlclient pip module, if not yet installed
+  pip: 
+    name: mysqlclient
+    state: present
+
+- name: Create a new database with name '{{ sympa_db_name }}'
+  mysql_db:
+    name: "{{ sympa_db_name }}"
+    encoding: utf8
+
+- name: Create DB user '{{ sympa_db_user }}'
+  mysql_user:
+    name: "{{ sympa_db_user }}"
+    password: "{{ sympa_db_password | mandatory }}"
+    priv: '{{ sympa_db_name }}.*:ALL,GRANT'
+  no_log: True
+
+...

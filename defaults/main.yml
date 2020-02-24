@@ -8,6 +8,10 @@ sympa_template_lists: []
 #  ssl: true
 #  queue_transport: sympa
 #  bouncequeue_transport: sympabounce
+
+## Database variables
+sympa_db_type: mysql             # mysql or pgsql
+sympa_install_db_package: false  # yes for this role to install mysql or postgres, no if installed elsewhere / TODO: not yet working for MySQL
 sympa_db_name: sympa
 sympa_db_host: localhost
 sympa_db_port: 3306
@@ -113,4 +117,5 @@ sympa_default_home: home
 sympa_edit_list: owner
 sympa_ldap_force_canonical_email: 1
 sympa_review_page_size: 25
+sympa_webserver_type: Other                        # 'Other' or 'Apache 2'
 sympa_web_page_title: Mailing lists service
