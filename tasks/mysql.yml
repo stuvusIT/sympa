@@ -38,7 +38,7 @@
     state: present
 
 - name: Create a new database with name '{{ sympa_db_name }}'
-  mysql_db:
+  community.mysql.mysql_db:
     name: "{{ sympa_db_name }}"
     encoding: utf8
 
