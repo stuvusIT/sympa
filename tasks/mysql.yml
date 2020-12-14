@@ -29,7 +29,9 @@
 
 - name: Install pip, if not yet installed
   apt: 
-    name: python-pip
+    name: 
+     - python-pip
+     - pyhton3-pip
     state: present
 
 - name: install mysqlclient pip module, if not yet installed
