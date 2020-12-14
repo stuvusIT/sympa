@@ -1,6 +1,18 @@
 ---
 ## Sympa configuration main tasks file
 
+- name: Add Debian testing repo
+  apt_repository:
+    repo: deb http://deb.debian.org/debian/ testing main
+
+- name: Pin Debian testing repo
+  copy:
+    content: |
+      Package: *
+      Pin: release a=testing
+      Pin-Priority: -1
+    dest: /etc/apt/preferences.d/limit-testing
+
 - name: Check that "debconf" and "debconf-utils" are installed
   apt:
     name:
@@ -59,6 +71,7 @@
       - sympa
       - fcgiwrap
     state: latest
+    default_release: testing
 
 - name: Fix permissions
   file:
