@@ -7,3 +7,15 @@
 - name: Reload sympa config
   become_user: sympa
   command: /usr/lib/sympa/bin/sympa.pl --reload_list_config
+
+- name: Reload daemon and restart wwsympa service
+  systemd:
+    name: wwsympa.service
+    daemon_reload: yes
+    state: restarted
+
+- name: Reload daemon and restart wwsympa socket
+  systemd:
+    name: wwsympa.socket
+    daemon_reload: yes
+    state: restarted

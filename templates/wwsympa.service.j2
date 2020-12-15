@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+[Unit]
+Description = WWSympa - Web interface for Sympa mailing list manager (service)
+After = syslog.target sympa.service
+Requires = wwsympa.socket
+
+[Service]
+User = sympa
+Group = sympa
+ExecStart = /usr/lib/cgi-bin/sympa/wwsympa.fcgi
+StandardOutput = null
+StandardInput = socket
+StandardError = null
+Restart=on-failure
+
+[Install]
+WantedBy = multi-user.target

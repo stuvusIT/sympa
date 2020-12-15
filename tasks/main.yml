@@ -69,7 +69,6 @@
   apt:
     name:
       - sympa
-      - fcgiwrap
     state: latest
     default_release: testing
 
@@ -186,6 +185,34 @@
     group: sympa
     mode: 0600
   notify: Restart sympa
+
+- name: Add systemd unit for wwsympa fcgi socket
+  template:
+    src: wwsympa.socket.j2
+    dest: /etc/systemd/system/wwsympa.socket
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload daemon and restart wwsympa service
+
+- name: Add systemd unit for wwsympa fcgi service
+  template:
+    src: wwsympa.service.j2
+    dest: /etc/systemd/system/wwsympa.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Reload daemon and restart wwsympa socket
+
+- meta: flush_handlers
+
+- name: Enable wwsympa service now
+  service:
+    name: wwsympa
+    enabled: True
+    state: started
 
 - name: Add cron job to reload config regularly
   become_user: sympa
