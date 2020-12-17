@@ -194,7 +194,7 @@
     group: root
     mode: 0644
   notify:
-    - Reload daemon and restart wwsympa service
+    - Reload daemon and restart wwsympa socket
 
 - name: Add systemd unit for wwsympa fcgi service
   template:
@@ -204,7 +204,7 @@
     group: root
     mode: 0644
   notify:
-    - Reload daemon and restart wwsympa socket
+    - Reload daemon and restart wwsympa service
 
 - meta: flush_handlers
 
