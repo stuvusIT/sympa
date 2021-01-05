@@ -29,9 +29,6 @@ wwsympa_url	{{ sympa_wwsympa_url }}
 ## This setting can be overridden by each list
 process_archive	{% if sympa_process_archive %}on{% else %}off{% endif %}
 
-## voot_feature
-voot_feature {% if sympa_voot_feature %}on{% else %}off{% endif %}
-
 ## max_wrong_password
 max_wrong_password	{{ sympa_max_wrong_password }}
 
@@ -462,4 +459,3 @@ use_fast_cgi	1
 {% if sympa_alias_manager %}
 alias_manager {{ sympa_alias_manager }}
 {% endif %}
-

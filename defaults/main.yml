@@ -14,7 +14,7 @@ sympa_template_lists: []
 
 ## Database variables
 sympa_db_type: mysql             #'MySQL' or 'mysql'. or 'PostgreSQL' or 'Pg'. 'mysql' and 'Pg' values are deprecated
-sympa_install_db_package: False  # 'True' for this role to install mysql or postgresql package, 'False' if installed elsewhere 
+sympa_install_db_package: False  # 'True' for this role to install mysql or postgresql package, 'False' if installed elsewhere
 sympa_db_name: sympa
 sympa_db_host: localhost
 sympa_db_port: "{{ 5432 if sympa_db_type == 'PostgreSQL' else 3306 }}"
@@ -30,7 +30,6 @@ sympa_topics:
 sympa_email: sympa
 sympa_gecos: SYMPA
 sympa_process_archive: False
-sympa_voot_feature: False
 sympa_max_wrong_password: 19
 sympa_static_content_path: /var/lib/sympa/static_content
 sympa_static_content_url: /static-sympa
