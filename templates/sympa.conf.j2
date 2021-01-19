@@ -456,6 +456,10 @@ title	{{ sympa_web_page_title }}
 ## This module provide much faster web interface
 use_fast_cgi	1
 
-{% if sympa_alias_manager %}
+{% if sympa_sendmail_aliases is defined %}
+sendmail_aliases {{ sympa_sendmail_aliases }}
+{% endif %}
+
+{% if sympa_alias_manager is defined %}
 alias_manager {{ sympa_alias_manager }}
 {% endif %}
