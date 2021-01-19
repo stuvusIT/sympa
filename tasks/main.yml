@@ -39,7 +39,7 @@
   loop:
       ## set the database type
   - { name: 'sympa', question: 'sympa/database-type', value: '{{ sympa_db_type }}' , vtype: select }
-      ## This Ansible role configures the database, not dbconfig at sympa package installation 
+      ## This Ansible role configures the database, not dbconfig at sympa package installation
   - { name: 'sympa', question: 'sympa/dbconfig-install', value: 'false' , vtype: boolean }
       ## Set the sympa database name
   - { name: 'sympa', question: 'sympa/db/dbname', value: '{{ sympa_db_name }}' , vtype: string }
@@ -64,6 +64,7 @@
   notify:
     - Reload sympa config
     - Restart sympa
+    - Reload daemon and restart wwsympa service
 
 - name: Install packages
   apt:
@@ -71,6 +72,10 @@
       - sympa
     state: latest
     default_release: testing
+  notify:
+    - Reload sympa config
+    - Restart sympa
+    - Reload daemon and restart wwsympa service
 
 - name: Fix permissions
   file:
@@ -175,7 +180,9 @@
     owner: sympa
     group: sympa
     mode: 0600
-  notify: Restart sympa
+  notify:
+    - Restart sympa
+    - Reload daemon and restart wwsympa service
 
 - name: Create topics.conf
   template:
@@ -184,7 +191,9 @@
     owner: sympa
     group: sympa
     mode: 0600
-  notify: Restart sympa
+  notify:
+    - Restart sympa
+    - Reload daemon and restart wwsympa service
 
 - name: Add systemd unit for wwsympa fcgi socket
   template:
