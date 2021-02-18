@@ -41,11 +41,14 @@ static_content_path	{{ sympa_static_content_path }}
 ## URL mapped with the static_content_path directory defined above
 static_content_url	{{ sympa_static_content_url }}
 
+{# The cookie statement is deprecated, but still required for instances, which were installed before the deprecation #}
+{% if sympa_cookie_secret | length>0 %}
 ## cookie
 ## Secret used by Sympa to make MD5 fingerprint in web cookies secure
 ## Should not be changed ! May invalid all user password
 ## Example: cookie	123456789
-cookie	`/usr/bin/head -n1 /etc/sympa/cookie`
+cookie	{{ sympa_cookie_secret }}
+{% endif %}
 
 ###\\\\ System related ////###
 
