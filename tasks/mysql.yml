@@ -28,9 +28,8 @@
   when: sympa_install_db_package
 
 - name: Install pip, if not yet installed
-  apt: 
-    name: 
-     - python-pip
+  apt:
+    name:
      - python3-pip
     state: present
 
