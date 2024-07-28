@@ -77,6 +77,31 @@
     - Restart sympa
     - Reload daemon and restart wwsympa service
 
+- name: Create cache directory
+  file:
+    path: /var/cache/font-awesome/{{ sympa_font_awesome_version }}
+    state: directory
+
+- name: Download font-awesome
+  get_url:
+    url: https://use.fontawesome.com/releases/v{{sympa_font_awesome_version }}/fontawesome-free-{{ sympa_font_awesome_version }}-web.zip
+    dest: /var/cache/font-awesome/{{ sympa_font_awesome_version }}
+
+- name: Unpack font-awesome
+  unarchive:
+    src: /var/cache/font-awesome/{{ sympa_font_awesome_version }}/fontawesome-free-{{ sympa_font_awesome_version }}-web.zip
+    remote_src: yes
+    dest: /var/cache/font-awesome/{{ sympa_font_awesome_version }}
+    owner: sympa
+    group: sympa
+    mode: 0755
+
+- name: Copy font-awesome to webroot
+  copy:
+    src: /var/cache/font-awesome/{{ sympa_font_awesome_version}}/fontawesome-free-{{ sympa_font_awesome_version }}-web/
+    dest: /usr/share/sympa/static_content/fonts/font-awesome/
+    remote_src: yes
+
 - name: Fix permissions
   file:
     path: "/etc/sympa/{{ item }}"

@@ -4,6 +4,7 @@
 sympa_domain: "{{ ansible_fqdn }}"
 sympa_show_default_templates: false
 sympa_template_lists: []
+sympa_font_awesome_version: "6.6.0"
 ## Define the following variables for ldap alias manager
 # sympa_ldap_alias_manager_conf:
 #  host: ldap.myhost.org
