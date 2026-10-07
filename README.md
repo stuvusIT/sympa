@@ -5,7 +5,7 @@ This is an Ansible role which sets up a [Sympa](https://sympa.org) mailing list 
 
 ## Requirements
 
-Debian stretch or Ubuntu server. MySQL/MariaDB or PostgreSQL database options. Database manager can be previously installed in the host (default) or optionnally installed by the role itself. Webserver for Sympa should be configured elsewhere.
+Debian stretch or Ubuntu server. MySQL/MariaDB or PostgreSQL database options. Database manager can be previously installed in the host (default), optionally installed by the role itself, or run elsewhere. Webserver for Sympa should be configured elsewhere.
 
 
 ## Role Variables
@@ -106,7 +106,8 @@ title: Expressionism
 | Name                       | Required/Default | Description                                                                                                                                          |
 | :------------------------- | :--------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sympa_db_type`            |     `mysql`      | Choice of database manager. `MySQL` or `PostgreSQL`. `mysql` and `Pg` values are acceptable, but deprecated. Other database options are not managed. |
-| `sympa_install_db_package` |     `False`      | Whether the db manager is installed previously (`False`) or the role installs it (`True`)                                                            |
+| `sympa_manage_db`          |      `True`      | Whether the role manages the database server. Set to `False` to use a remote or otherwise managed database. The database must already exist and be reachable with the `sympa_db_*` settings. |
+| `sympa_install_db_package` |     `False`      | Whether the db manager is installed previously (`False`) or the role installs it (`True`). Only used if `sympa_manage_db` is `True`.                 |
 
 ### Sympa Variables
 
